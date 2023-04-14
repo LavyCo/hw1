@@ -64,7 +64,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
     }
+
 private void buttonLeftRightClick(){
     mainLeftRightBTN[0].setOnClickListener(v->gameShip.moveLeft());
     mainLeftRightBTN[1].setOnClickListener(v->gameShip.moveRight());
