@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void startGame() {
-        final Handler handler = new Handler();
+          final Handler handler = new Handler();
 
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -62,10 +62,15 @@ public class MainActivity extends AppCompatActivity {
                 gameEggs.startFallingEggs();
                 gameEggs.initBrokenEggs();
 
+
             }
         });
 
+
+
     }
+
+
 
 private void buttonLeftRightClick(){
     mainLeftRightBTN[0].setOnClickListener(v->gameShip.moveLeft());
