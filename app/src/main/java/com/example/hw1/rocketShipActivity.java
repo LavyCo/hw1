@@ -13,11 +13,13 @@ public class rocketShipActivity {
         this.ship2=ship2;
         this.ship3=ship3;
     }
+    //move to main activity
     public void initShip(){//move the ship to the middle
         ship1.setVisibility(View.INVISIBLE);
         ship3.setVisibility(View.INVISIBLE);
 
     }
+    //move to main activity
     public void moveLeft(){
         if(ship2.getVisibility()==View.VISIBLE){
             ship1.setVisibility(View.VISIBLE);
@@ -28,6 +30,7 @@ public class rocketShipActivity {
 
         }
     }
+    //move to main activity
     public void moveRight(){
         if(ship2.getVisibility()==View.VISIBLE){
             ship3.setVisibility(View.VISIBLE);

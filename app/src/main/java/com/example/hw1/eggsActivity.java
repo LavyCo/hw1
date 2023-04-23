@@ -17,6 +17,7 @@ public class eggsActivity {
         this.brokenEggs = brokenEggs;
 
     }
+    //move to main activity
     public void initEggs(){
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < NUMOFCHICKENS; j++) {
@@ -25,17 +26,19 @@ public class eggsActivity {
         }
         initBrokenEggs();
     }
-
+    //move to main activity
     public void swichEggs(ShapeableImageView egg, ShapeableImageView brokenEgg) {
         egg.setVisibility(View.INVISIBLE);
         brokenEgg.setVisibility(View.VISIBLE);
 
     }
+    //move to main activity
     public void startFallingEggs() {
         Random rand = new Random();
         int randEgg = rand.nextInt(3);
         eggs[0][randEgg].setVisibility(View.VISIBLE);
     }
+    //move to main activity
     public void dropEggsDownView() {
         for(int i = HEIGHT-1;i>=0;i--){
             for (int j=NUMOFCHICKENS-1;j>=0;j--){
@@ -52,7 +55,7 @@ public class eggsActivity {
         }
     }
 
-
+    //move to main activity
     public void initBrokenEggs() {
         for(int i=0;i<NUMOFCHICKENS;i++){
             this.brokenEggs[i].setVisibility(View.INVISIBLE);

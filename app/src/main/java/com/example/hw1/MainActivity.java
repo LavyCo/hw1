@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         startGame();
 
     }
+    //move to game manager
     private void startGame() {
           final Handler handler = new Handler();
 
@@ -71,11 +72,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    //move to game manager
 private void buttonLeftRightClick(){
     mainLeftRightBTN[0].setOnClickListener(v->gameShip.moveLeft());
     mainLeftRightBTN[1].setOnClickListener(v->gameShip.moveRight());
 }
+    //move to game manager
     private void findViewForAllGameBoard() {
         mainLeftRightBTN = new MaterialButton[]{
                 findViewById(R.id.Main_button_left),
@@ -96,7 +98,7 @@ private void buttonLeftRightClick(){
 
     }
 
-
+    //move to game manager
     private void setEggView() {
 
         eggs = new ShapeableImageView[HEIGHT][NUMOFCHICKENS];
@@ -111,6 +113,7 @@ private void buttonLeftRightClick(){
         }
 
     }
+    //move to game manager
     private void setVisibility(){
 
         gameShip.initShip();
