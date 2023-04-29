@@ -15,14 +15,14 @@ import com.example.myapplication.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
     public final int DELAY = 1000;
     public final int HEIGHT = 6;
     public final int NUMOFCHICKENS = 3;
-
-    private eggsActivity gameEggs;
-    private rocketShipActivity gameShip;
+    private Gamemanager gamemanager;
     private ShapeableImageView[] hearts;
     private ShapeableImageView[][] eggs;
     private ShapeableImageView[] brokenEggs;
@@ -37,9 +37,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //gamemanager=new Gamemanager()
         findViewForAllGameBoard();
-        gameEggs=new eggsActivity(eggs,brokenEggs);
-        gameShip=new rocketShipActivity(ship1,ship2,ship3);
         setVisibility();
         buttonLeftRightClick();
         startGame();
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             public void run() {
                 handler.postDelayed(this, 800);
-                gameEggs.dropEggsDownView();
+                dropEggsDownView();
                 eggsCrash();
             }
         }, DELAY);
@@ -60,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             public void run() {
                 handler.postDelayed(this,1700);
-                gameEggs.startFallingEggs();
-                gameEggs.initBrokenEggs();
+                startFallingEggs();
+                initBrokenEggs();
 
 
             }
@@ -74,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
     //move to game manager
 private void buttonLeftRightClick(){
-    mainLeftRightBTN[0].setOnClickListener(v->gameShip.moveLeft());
-    mainLeftRightBTN[1].setOnClickListener(v->gameShip.moveRight());
+    mainLeftRightBTN[0].setOnClickListener(v->moveLeft());
+    mainLeftRightBTN[1].setOnClickListener(v->moveRight());
 }
     //move to game manager
     private void findViewForAllGameBoard() {
@@ -115,10 +114,8 @@ private void buttonLeftRightClick(){
     }
     //move to game manager
     private void setVisibility(){
-
-        gameShip.initShip();
-        gameEggs.initEggs();
-
+        initShip();
+        initEggs();
     }
     private void heartManager(int heartsNumber){
         hearts[hearts.length - heartsNumber].setVisibility(View.INVISIBLE);
@@ -136,7 +133,7 @@ private void buttonLeftRightClick(){
             counter = 1;
 
         if (eggs[4][0].getVisibility() == View.VISIBLE && ship1.getVisibility() == View.VISIBLE) {
-            gameEggs.swichEggs(eggs[4][0], brokenEggs[0]);
+            swichEggs(eggs[4][0], brokenEggs[0]);
             heartManager(counter);
             toastVibrator(getApplicationContext(), v, counter);
             counter++;
@@ -144,14 +141,14 @@ private void buttonLeftRightClick(){
         }
         if (eggs[4][1].getVisibility() == View.VISIBLE && ship2.getVisibility() == View.VISIBLE) {
 
-            gameEggs.swichEggs(eggs[4][1], brokenEggs[1]);
+            swichEggs(eggs[4][1], brokenEggs[1]);
             heartManager(counter);
             toastVibrator(getApplicationContext(), v, counter);
             counter++;
         }
         if (eggs[4][2].getVisibility() == View.VISIBLE && ship3.getVisibility() == View.VISIBLE) {
 
-            gameEggs.swichEggs(eggs[4][2], brokenEggs[2]);
+            swichEggs(eggs[4][2], brokenEggs[2]);
             heartManager(counter);
             toastVibrator(getApplicationContext(), v, counter);
             counter++;
@@ -167,6 +164,75 @@ private void buttonLeftRightClick(){
             v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
             v.vibrate(500);
+        }
+    }
+    public void initShip(){//move the ship to the middle
+        ship1.setVisibility(View.INVISIBLE);
+        ship3.setVisibility(View.INVISIBLE);
+
+    }
+
+    public void moveLeft(){
+        if(ship2.getVisibility()==View.VISIBLE){
+            ship1.setVisibility(View.VISIBLE);
+            ship2.setVisibility(View.INVISIBLE);
+        }else if(ship3.getVisibility()==View.VISIBLE){
+            ship2.setVisibility(View.VISIBLE);
+            ship3.setVisibility(View.INVISIBLE);
+
+        }
+    }
+
+    public void moveRight(){
+        if(ship2.getVisibility()==View.VISIBLE){
+            ship3.setVisibility(View.VISIBLE);
+            ship2.setVisibility(View.INVISIBLE);
+        }else if(ship1.getVisibility()==View.VISIBLE){
+            ship2.setVisibility(View.VISIBLE);
+            ship1.setVisibility(View.INVISIBLE);
+        }
+    }
+    public void initEggs(){
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < NUMOFCHICKENS; j++) {
+                this.eggs[i][j].setVisibility(View.INVISIBLE);
+            }
+        }
+        initBrokenEggs();
+    }
+
+    public void swichEggs(ShapeableImageView egg, ShapeableImageView brokenEgg) {
+        egg.setVisibility(View.INVISIBLE);
+        brokenEgg.setVisibility(View.VISIBLE);
+
+    }
+
+    public void startFallingEggs() {
+        Random rand = new Random();
+        int randEgg = rand.nextInt(3);
+        eggs[0][randEgg].setVisibility(View.VISIBLE);
+    }
+
+    public void dropEggsDownView() {
+        for(int i = HEIGHT-1;i>=0;i--){
+            for (int j=NUMOFCHICKENS-1;j>=0;j--){
+                if(i==HEIGHT-1){
+                    eggs[i][j].setVisibility(View.INVISIBLE);
+                }
+                else{
+                    if(eggs[i][j].getVisibility()==View.VISIBLE){
+                        eggs[i+1][j].setVisibility(View.VISIBLE);
+                        eggs[i][j].setVisibility(View.INVISIBLE);
+                    }
+                }
+            }
+        }
+    }
+
+    //move to main activity
+    public void initBrokenEggs() {
+        for(int i=0;i<NUMOFCHICKENS;i++){
+            this.brokenEggs[i].setVisibility(View.INVISIBLE);
         }
     }
 

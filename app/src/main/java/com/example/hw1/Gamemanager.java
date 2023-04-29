@@ -1,83 +1,92 @@
 package com.example.hw1;
 
-import android.os.Handler;
-
-import com.example.myapplication.R;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.imageview.ShapeableImageView;
+import java.util.Random;
 
 public class Gamemanager {
-    public final int DELAY = 1000;
-    public final int HEIGHT = 6;
-    public final int NUMOFCHICKENS = 3;
+    private int life;
+    private int rows;
+    private int cols;
+    private int eggsBoard[][];
 
-    private void startGame() {
-        final Handler handler = new Handler();
+    private int shipArr[];
+    private int shipIndex;
 
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                handler.postDelayed(this, 800);
-                gameEggs.dropEggsDownView();
-                eggsCrash();
-            }
-        }, DELAY);
-
-        runOnUiThread(new Runnable() {
-            public void run() {
-                handler.postDelayed(this,1700);
-                gameEggs.startFallingEggs();
-                gameEggs.initBrokenEggs();
-
-
-            }
-        });
-
-
-
+    public Gamemanager(int life, int row, int col) {
+        this.life = life;
+        this.eggsBoard = new int [row][col];
+        this.shipArr = new int [col];
+        this.rows = row;
+        this.cols = col;
+        initBoard();
+        moveShip((col-1)/2);
     }
-    private void setEggView() {
 
-        eggs = new ShapeableImageView[HEIGHT][NUMOFCHICKENS];
-        int num = 1;
-        for (int i = 0; i < HEIGHT; i++) {
-            for (int j = 0; j < NUMOFCHICKENS; j++) {
-                String numOfEgg = "egg" + num;
-                num++;
-                int resID = getResources().getIdentifier(numOfEgg, "id", getPackageName());
-                eggs[i][j] = ((ShapeableImageView) findViewById(resID));
+    private void initBoard() {
+        for(int i=0;i<rows;i++){
+            for (int j=0;j<cols;j++){
+                this.eggsBoard[i][j] = 0;
             }
         }
-
     }
-    private void buttonLeftRightClick(){
-        mainLeftRightBTN[0].setOnClickListener(v->gameShip.moveLeft());
-        mainLeftRightBTN[1].setOnClickListener(v->gameShip.moveRight());
-    }
-
-    private void findViewForAllGameBoard() {
-        mainLeftRightBTN = new MaterialButton[]{
-                findViewById(R.id.Main_button_left),
-                findViewById(R.id.Main_button_right)};
-        hearts = new ShapeableImageView[]{
-                findViewById(R.id.heart1),
-                findViewById(R.id.heart2),
-                findViewById(R.id.heart3)};
-        ship1 = findViewById(R.id.ship1);
-        ship2 = findViewById(R.id.ship2);
-        ship3 = findViewById(R.id.ship3);
-        brokenEggs=new ShapeableImageView[]
-                {findViewById(R.id.broken_egg1),
-                        findViewById(R.id.broken_egg2),
-                        findViewById(R.id.broken_egg3)};
-
-        setEggView() ;
-
-    }
-    private void setVisibility(){
-
-        gameShip.initShip();
-        gameEggs.initEggs();
-
+    public void moveShip(int dog) {
+        this.shipIndex = dog;
+        for(int i = 0; i<cols;i++){
+            this.shipArr[i] = 0;
+        }
+        this.shipArr[dog] = 1;
     }
 
+    public int getLife(){
+        return life;
+    }
+
+    public int getShipIndex(){
+        return shipIndex;
+    }
+
+    public int [][] getEggsBoard(){
+        return eggsBoard;
+    }
+
+    public void updateBoard(){
+        for(int i = rows-1;i>=0;i--){
+            for (int j=cols-1;j>=0;j--){
+                if(i==rows-1){
+                    eggsBoard[i][j]=0;
+                }
+                else{
+                    if(eggsBoard[i][j]==1){
+                        eggsBoard[i+1][j]=1;
+                        eggsBoard[i][j]= 0;
+                    }
+                }
+            }
+        }
+    }
+
+    public void randomBall(){
+        for(int i =0;i<cols;i++){
+            if(eggsBoard[0][i] == 1){
+                return;
+            }
+        }
+        int randomCol = new Random().nextInt(cols);
+        eggsBoard[0][randomCol] = 1;
+    }
+
+    public boolean isCrashed(){
+        return (this.eggsBoard[rows-1][shipIndex] == shipArr[shipIndex]);
+    }
+
+    public void crash(){
+        this.life--;
+    }
+
+    public boolean isLose() {
+        return life == 0;
+    }
+
+    public void setLife(int life) {
+        this.life = life;
+    }
 }
