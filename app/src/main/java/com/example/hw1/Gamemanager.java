@@ -28,12 +28,12 @@ public class Gamemanager {
             }
         }
     }
-    public void moveShip(int dog) {
-        this.shipIndex = dog;
+    public void moveShip(int ship) {
+        this.shipIndex = ship;
         for(int i = 0; i<cols;i++){
             this.shipArr[i] = 0;
         }
-        this.shipArr[dog] = 1;
+        this.shipArr[ship] = 1;
     }
 
     public int getLife(){
@@ -64,7 +64,7 @@ public class Gamemanager {
         }
     }
 
-    public void randomBall(){
+    public void randomEgg(){
         for(int i =0;i<cols;i++){
             if(eggsBoard[0][i] == 1){
                 return;
