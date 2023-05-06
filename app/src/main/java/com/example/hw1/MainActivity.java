@@ -22,14 +22,17 @@ public class MainActivity extends AppCompatActivity {
     public final int DELAY = 1000;
     public final int HEIGHT = 6;
     public final int NUMOFCHICKENS = 3;
+    private final int LIFE = 3;
     private Gamemanager gamemanager;
     private ShapeableImageView[] hearts;
     private ShapeableImageView[][] eggs;
     private ShapeableImageView[] brokenEggs;
-    private ShapeableImageView ship1;
+    private ShapeableImageView[] ship;
+   private ShapeableImageView ship1;
     private ShapeableImageView ship2;
     private ShapeableImageView ship3;
     private  int counter=1;
+
 
     private MaterialButton[] mainLeftRightBTN;
 
@@ -37,12 +40,72 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //gamemanager=new Gamemanager()
+        gamemanager=new Gamemanager(LIFE,HEIGHT,NUMOFCHICKENS);
         findViewForAllGameBoard();
-        setVisibility();
-        buttonLeftRightClick();
-        startGame();
+        viewShip();
+        setButtons();
+        start();
+      //  setVisibility();
+       // buttonLeftRightClick();
+       // startGame();
 
+    }
+    private void start() {
+        final Handler handler = new Handler();
+
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                handler.postDelayed(this, 2100);
+                gamemanager.randomEgg();
+                initBrokenEggs();
+                refreshUI();
+            }
+        }, DELAY);
+
+        runOnUiThread(new Runnable() {
+            public void run() {
+                handler.postDelayed(this,1700);
+                gamemanager.updateBoard();
+            }
+        });
+    }
+
+    private void refreshUI() {
+        if(gamemanager.isCrashed()){
+            gamemanager.crash();
+            if(gamemanager.isLose()){
+                toast("GAME OVER!");
+                gamemanager.setLife(LIFE);
+                for(int i = 0;i <hearts.length;i++){
+                    hearts[i].setVisibility(View.VISIBLE);
+                }
+
+            }
+            else{
+                toast("Lost Life!");
+                vibrate();
+                for(int i = gamemanager.getLife();i < hearts.length;i++){
+                    hearts[i].setVisibility(View.INVISIBLE);
+                }
+            }
+        }
+        gamemanager.randomEgg();
+        viewBoard();
+    }
+
+    private void viewBoard() {
+        int[][] board = gamemanager.getEggsBoard();
+        int height=0;
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < NUMOFCHICKENS; j++) {
+                if (board[i][j] == 1) {
+                    eggs[i][j].setVisibility(View.VISIBLE);
+                }
+                else  {
+                    eggs[i][j].setVisibility(View.INVISIBLE);
+                }
+            }
+        }
     }
     //move to game manager
     private void startGame() {
@@ -69,6 +132,57 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    private void setButtons() {
+        mainLeftRightBTN[0].setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                clicked(0);
+            }
+        });
+        mainLeftRightBTN[1].setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                clicked(1);
+            }
+        });
+    }
+    private void clicked(int move) {
+        int shipInd = gamemanager.getShipIndex();
+        if(move == 0){
+            shipInd --;
+        }
+        else if(move == 1){
+            shipInd ++;
+        }
+        if(shipInd >= 0 && shipInd <NUMOFCHICKENS){
+            gamemanager.moveShip(shipInd);
+            viewShip();
+        }
+        gamemanager.updateBoard();
+        refreshUI();
+    }
+    private void viewShip() {
+        int ShipInd = gamemanager.getShipIndex();
+        for (int i=0;i<NUMOFCHICKENS;i++){
+            if(i==ShipInd){
+                ship[i].setVisibility(View.VISIBLE);
+            }
+            else {
+                ship[i].setVisibility(View.INVISIBLE);
+            }
+        }
+    }
+    private void toast(String st) {
+        Toast.makeText(this, st, Toast.LENGTH_SHORT).show();
+    }
+    private void vibrate() {
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        // Vibrate for 500 milliseconds
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            //deprecated in API 26
+            v.vibrate(500);
+        }
+    }
 
 
     //move to game manager
@@ -85,9 +199,10 @@ private void buttonLeftRightClick(){
                 findViewById(R.id.heart1),
                 findViewById(R.id.heart2),
                 findViewById(R.id.heart3)};
-        ship1 = findViewById(R.id.ship1);
-        ship2 = findViewById(R.id.ship2);
-        ship3 = findViewById(R.id.ship3);
+        ship = new ShapeableImageView[]{
+                findViewById(R.id.ship1),
+                findViewById(R.id.ship2),
+                findViewById(R.id.ship3)};
         brokenEggs=new ShapeableImageView[]
                 {findViewById(R.id.broken_egg1),
                 findViewById(R.id.broken_egg2),
