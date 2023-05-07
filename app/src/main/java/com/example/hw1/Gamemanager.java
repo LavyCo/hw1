@@ -75,7 +75,15 @@ public class Gamemanager {
     }
 
     public boolean isCrashed(){
-        return (this.eggsBoard[rows-1][shipIndex] == shipArr[shipIndex]);
+        boolean flag=false;
+        if(this.eggsBoard[rows-2][shipIndex] == shipArr[shipIndex]){
+            flag=true;
+            this.eggsBoard[rows-2][shipIndex]=3;
+            //edit this after 
+
+
+        }
+        return flag;
     }
 
     public void crash(){
