@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     public final int DELAY = 1000;
     public final int HEIGHT = 6;
-    public final int NUMOFCHICKENS = 3;
+    public final int NUMOFCHICKENS = 5;
     private final int LIFE = 3;
     private Gamemanager gamemanager;
     private ShapeableImageView[] hearts;
@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
    private ShapeableImageView ship1;
     private ShapeableImageView ship2;
     private ShapeableImageView ship3;
+    private ShapeableImageView ship4;
+    private ShapeableImageView ship5;
     private  int counter=1;
 
 
@@ -42,12 +44,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         gamemanager=new Gamemanager(LIFE,HEIGHT,NUMOFCHICKENS);
         findViewForAllGameBoard();
-        viewShip();
-        setButtons();
-        start();
-      //  setVisibility();
-       // buttonLeftRightClick();
-       // startGame();
+        //viewShip();
+        //setButtons();
+        //start();
+        setVisibility();
+        buttonLeftRightClick();
+        startGame();
 
     }
     private void start() {
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         handler.postDelayed(new Runnable() {
             public void run() {
-                handler.postDelayed(this, 2100);
+                handler.postDelayed(this, 800);
                 gamemanager.randomEgg();
                 initBrokenEggs();
                 refreshUI();
@@ -114,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             public void run() {
                 handler.postDelayed(this, 800);
-                dropEggsDownView();
+                 dropEggsDownView();
                 eggsCrash();
             }
         }, DELAY);
@@ -199,14 +201,21 @@ private void buttonLeftRightClick(){
                 findViewById(R.id.heart1),
                 findViewById(R.id.heart2),
                 findViewById(R.id.heart3)};
+        ship1 = findViewById(R.id.ship1);
+        ship2 = findViewById(R.id.ship2);
+        ship3 = findViewById(R.id.ship3);
+        ship4 = findViewById(R.id.ship4);
+        ship5 = findViewById(R.id.ship5);
         ship = new ShapeableImageView[]{
                 findViewById(R.id.ship1),
                 findViewById(R.id.ship2),
-                findViewById(R.id.ship3)};
+                findViewById(R.id.ship3),
+                findViewById(R.id.ship4),
+                findViewById(R.id.ship5)};
         brokenEggs=new ShapeableImageView[]
                 {findViewById(R.id.broken_egg1),
                 findViewById(R.id.broken_egg2),
-                findViewById(R.id.broken_egg3)};
+                findViewById(R.id.broken_egg3),findViewById(R.id.broken_egg4),findViewById(R.id.broken_egg5)};
 
         setEggView() ;
 
@@ -283,7 +292,9 @@ private void buttonLeftRightClick(){
     }
     public void initShip(){//move the ship to the middle
         ship1.setVisibility(View.INVISIBLE);
-        ship3.setVisibility(View.INVISIBLE);
+        ship2.setVisibility(View.INVISIBLE);
+        ship4.setVisibility(View.INVISIBLE);
+        ship5.setVisibility(View.INVISIBLE);
 
     }
 
@@ -324,7 +335,7 @@ private void buttonLeftRightClick(){
 
     public void startFallingEggs() {
         Random rand = new Random();
-        int randEgg = rand.nextInt(3);
+        int randEgg = rand.nextInt(5);
         eggs[0][randEgg].setVisibility(View.VISIBLE);
     }
 

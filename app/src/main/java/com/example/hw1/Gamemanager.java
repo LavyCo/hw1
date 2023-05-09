@@ -1,5 +1,9 @@
 package com.example.hw1;
 
+import android.content.Context;
+import android.os.Vibrator;
+import android.view.View;
+
 import java.util.Random;
 
 public class Gamemanager {
@@ -10,6 +14,7 @@ public class Gamemanager {
 
     private int shipArr[];
     private int shipIndex;
+
 
     public Gamemanager(int life, int row, int col) {
         this.life = life;
@@ -74,14 +79,11 @@ public class Gamemanager {
         eggsBoard[0][randomCol] = 1;
     }
 
+
     public boolean isCrashed(){
         boolean flag=false;
         if(this.eggsBoard[rows-2][shipIndex] == shipArr[shipIndex]){
             flag=true;
-            this.eggsBoard[rows-2][shipIndex]=3;
-            //edit this after 
-
-
         }
         return flag;
     }

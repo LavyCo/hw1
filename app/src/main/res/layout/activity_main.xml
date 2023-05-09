@@ -57,7 +57,20 @@
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/rocket_ship_launch_missile_svgrepo_com"/>
-
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ship4"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/rocket_ship_launch_missile_svgrepo_com"/>
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ship5"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/rocket_ship_launch_missile_svgrepo_com"/>
 
 
         </LinearLayout>
@@ -126,6 +139,18 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/chicken_svgrepo_com" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/chicken4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/chicken_svgrepo_com" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/chicken5"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/chicken_svgrepo_com" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="300dp"
@@ -156,6 +181,18 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/egg" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/egg4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/egg" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/egg5"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/egg" />
 
         </LinearLayout>
 
@@ -169,21 +206,33 @@
             android:layout_marginEnd="56dp"
             android:orientation="horizontal">
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/egg4"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/egg" />
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/egg5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/egg" />
-
-                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/egg6"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/egg" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/egg7"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/egg" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/egg8"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/egg" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/egg9"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/egg" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/egg10"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -201,21 +250,33 @@
             android:layout_marginEnd="56dp"
             android:orientation="horizontal">
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/egg7"
+                    android:id="@+id/egg11"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/egg" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/egg8"
+                    android:id="@+id/egg12"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/egg" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/egg9"
+                    android:id="@+id/egg13"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/egg" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/egg14"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/egg" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/egg15"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -232,21 +293,33 @@
             android:layout_marginEnd="56dp"
             android:orientation="horizontal">
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/egg10"
+                    android:id="@+id/egg16"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/egg" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/egg11"
+                    android:id="@+id/egg17"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/egg" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/egg12"
+                    android:id="@+id/egg18"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/egg" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/egg19"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/egg" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/egg20"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -263,21 +336,33 @@
             android:layout_marginEnd="56dp"
             android:orientation="horizontal">
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/egg13"
+                    android:id="@+id/egg21"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/egg" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/egg14"
+                    android:id="@+id/egg22"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/egg" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/egg15"
+                    android:id="@+id/egg23"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/egg" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/egg24"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/egg" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/egg25"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -313,6 +398,18 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/broken_egg" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/broken_egg4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/broken_egg" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/broken_egg5"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/broken_egg" />
 
         </LinearLayout>
         <LinearLayout
@@ -325,21 +422,33 @@
             android:layout_marginEnd="56dp"
             android:orientation="horizontal">
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/egg16"
+                    android:id="@+id/egg26"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/egg" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/egg17"
+                    android:id="@+id/egg27"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/egg" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/egg18"
+                    android:id="@+id/egg28"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/egg" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/egg29"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/egg" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/egg30"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
