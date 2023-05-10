@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         handler.postDelayed(new Runnable() {
             public void run() {
-                handler.postDelayed(this, 1500);
+                handler.postDelayed(this, 800);
                 gamemanager.randomEgg();
                 initBrokenEggs();
                 refreshUI();
