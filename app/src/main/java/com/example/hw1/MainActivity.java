@@ -3,6 +3,7 @@ package com.example.hw1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
     private  int counter=1;
 
+    private MediaPlayer mediaPlayerBreak;
+
 
     private MaterialButton[] mainLeftRightBTN;
 
@@ -43,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         viewShip();
        setButtons();
          start();
-
+        mediaPlayerBreak=MediaPlayer.create(this,R.raw.eggs_break);
 
     }
     private void start() {
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void refreshUI() {
         if(gamemanager.isCrashed()){
+            mediaPlayerBreak.start();
             int index=gamemanager.getShipIndex();
             swichEggs(eggs[HEIGHT-2][index],brokenEggs[index]);
             gamemanager.crash();
