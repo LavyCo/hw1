@@ -73,26 +73,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void refreshUI() {
+        showLife();
         if(gamemanager.isCrashed()){
             gamemanager.crash();
             if(gamemanager.isLose()){
                 toast("GAME OVER!");
-                gamemanager.setLife(LIFE);
-                for(int i = 0;i <hearts.length;i++){
-                    hearts[i].setVisibility(View.VISIBLE);
-                }
 
             }
             else{
                 toast("Lost Life!");
                 vibrate();
-                for(int i = gamemanager.getLife();i < hearts.length;i++){
-                    hearts[i].setVisibility(View.INVISIBLE);
-                }
+
             }
         }
         gamemanager.randomEgg();
         viewBoard();
+    }
+    private void  showLife(){
+        int life=gamemanager.getLife();
+        if(life==3){
+            hearts[0].setVisibility(View.VISIBLE);
+            hearts[1].setVisibility(View.VISIBLE);
+            hearts[2].setVisibility(View.VISIBLE);
+        }
+        else if(life==2){
+            hearts[0].setVisibility(View.VISIBLE);
+            hearts[1].setVisibility(View.VISIBLE);
+            hearts[2].setVisibility(View.INVISIBLE);
+        }
+        else if(life==1){
+            hearts[0].setVisibility(View.VISIBLE);
+            hearts[1].setVisibility(View.INVISIBLE);
+            hearts[2].setVisibility(View.INVISIBLE);
+        }
+        else if(life==0){
+            hearts[0].setVisibility(View.INVISIBLE);
+            hearts[1].setVisibility(View.INVISIBLE);
+            hearts[2].setVisibility(View.INVISIBLE);
+        }
     }
 
     private void viewBoard() {
@@ -159,7 +177,6 @@ public class MainActivity extends AppCompatActivity {
             viewShip();
         }
         gamemanager.updateBoard();
-        refreshUI();
     }
     private void viewShip() {
         int ShipInd = gamemanager.getShipIndex();
