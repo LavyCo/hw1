@@ -44,12 +44,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         gamemanager=new Gamemanager(LIFE,HEIGHT,NUMOFCHICKENS);
         findViewForAllGameBoard();
-        //viewShip();
-        //setButtons();
-        //start();
-        setVisibility();
-        buttonLeftRightClick();
-        startGame();
+        viewShip();
+        setButtons();
+        start();
+        //setVisibility();
+       // buttonLeftRightClick();
+       // startGame();
 
     }
     private void start() {
