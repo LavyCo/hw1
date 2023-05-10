@@ -45,11 +45,11 @@ public class MainActivity extends AppCompatActivity {
         gamemanager=new Gamemanager(LIFE,HEIGHT,NUMOFCHICKENS);
         findViewForAllGameBoard();
         viewShip();
-        setButtons();
-        start();
-        //setVisibility();
-       // buttonLeftRightClick();
-       // startGame();
+       setButtons();
+         start();
+//        setVisibility();
+//        buttonLeftRightClick();
+//        startGame();
 
     }
     private void start() {
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         handler.postDelayed(new Runnable() {
             public void run() {
-                handler.postDelayed(this, 800);
+                handler.postDelayed(this, 1500);
                 gamemanager.randomEgg();
                 initBrokenEggs();
                 refreshUI();
