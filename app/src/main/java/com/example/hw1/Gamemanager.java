@@ -64,6 +64,10 @@ public class Gamemanager {
                         eggsBoard[i+1][j]=1;
                         eggsBoard[i][j]= 0;
                     }
+                    else if(eggsBoard[i][j]==2){
+                        eggsBoard[i+1][j]=2;
+                        eggsBoard[i][j]= 0;
+                    }
                 }
             }
         }
@@ -78,6 +82,19 @@ public class Gamemanager {
         int randomCol = new Random().nextInt(cols);
         eggsBoard[0][randomCol] = 1;
     }
+    public void randomFriedChicken(){
+        int num=4;
+        for (int i = 0; i < cols; i++) {
+            if (eggsBoard[0][i] == 2) {
+                return;
+            }
+        }
+        int randomNum = new Random().nextInt(10);
+        if(num == randomNum) {
+            int randomCol = new Random().nextInt(cols);
+            eggsBoard[0][randomCol] = 2;
+        }
+    }
 
 
     public boolean isCrashed(){
@@ -86,6 +103,13 @@ public class Gamemanager {
             flag=true;
         }
         return flag;
+    }
+    public boolean isFried() {
+        return (this.eggsBoard[rows-2][shipIndex]==2 && shipArr[shipIndex]==1);
+    }
+    public void addLife() {
+        if (this.life < 3)
+            this.life++;
     }
 
     public void crash(){

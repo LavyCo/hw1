@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
@@ -27,12 +28,16 @@ public class MainActivity extends AppCompatActivity {
     private Gamemanager gamemanager;
     private ShapeableImageView[] hearts;
     private ShapeableImageView[][] eggs;
+    private ShapeableImageView[][] fried_chicken;
     private ShapeableImageView[] brokenEggs;
     private ShapeableImageView[] ship;
+    private TextView score;
+    private int counterScore;
 
-    private  int counter=1;
 
-    private MediaPlayer mediaPlayerBreak;
+
+    private MediaPlayer eggSound;
+    private MediaPlayer eatSound;
 
 
     private MaterialButton[] mainLeftRightBTN;
@@ -46,7 +51,9 @@ public class MainActivity extends AppCompatActivity {
         viewShip();
        setButtons();
          start();
-        mediaPlayerBreak=MediaPlayer.create(this,R.raw.eggs_break);
+        eggSound =MediaPlayer.create(this,R.raw.eggs_break);
+        eatSound =MediaPlayer.create(this,R.raw.eating);
+        counterScore=0;
 
     }
     private void start() {
@@ -58,8 +65,9 @@ public class MainActivity extends AppCompatActivity {
                 gamemanager.randomEgg();
                 initBrokenEggs();
                 refreshUI();
-                int index=gamemanager.getShipIndex();
-                eggs[HEIGHT-1][index].setVisibility(View.INVISIBLE);
+                eggs[HEIGHT-1][gamemanager.getShipIndex()].setVisibility(View.INVISIBLE);
+                fried_chicken[HEIGHT-1][gamemanager.getShipIndex()].setVisibility(View.INVISIBLE);
+
 
             }
         }, DELAY);
@@ -68,10 +76,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void refreshUI() {
+        counterScore++;
+        score.setText(" "+counterScore);
         if(gamemanager.isCrashed()){
-            mediaPlayerBreak.start();
-            int index=gamemanager.getShipIndex();
-            swichEggs(eggs[HEIGHT-2][index],brokenEggs[index]);
+            eggSound.start();
+            brokenEgg();
             gamemanager.crash();
             if(gamemanager.isLose()){
                 toast("GAME OVER!");
@@ -90,10 +99,29 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
+        }else if(gamemanager.isFried()){
+            eatSound.start();
+            fried_chicken[HEIGHT-2][gamemanager.getShipIndex()].setVisibility(View.INVISIBLE);
+            if(gamemanager.getLife()!=LIFE){
+                toast("Get Life!");
+                vibrate();
+
+            }
+
+            gamemanager.addLife();
+            for (int i = 0; i < gamemanager.getLife(); i++) {
+                hearts[i].setVisibility(View.VISIBLE);
+            }
         }
         gamemanager.updateBoard();
         gamemanager.randomEgg();
+        gamemanager.randomFriedChicken();
         viewBoard();
+    }
+
+    private void brokenEgg() {
+        int index=gamemanager.getShipIndex();
+        swichEggs(eggs[HEIGHT-2][index],brokenEggs[index]);
     }
 
 
@@ -107,6 +135,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else  {
                     eggs[i][j].setVisibility(View.INVISIBLE);
+                }
+                if (board[i][j] == 2) {
+                    fried_chicken[i][j].setVisibility(View.VISIBLE);
+                } else {
+                    fried_chicken[i][j].setVisibility(View.INVISIBLE);
                 }
             }
         }
@@ -182,8 +215,10 @@ public class MainActivity extends AppCompatActivity {
                 {findViewById(R.id.broken_egg1),
                 findViewById(R.id.broken_egg2),
                 findViewById(R.id.broken_egg3),findViewById(R.id.broken_egg4),findViewById(R.id.broken_egg5)};
+        score= findViewById(R.id.main_score);
 
         setEggView() ;
+        setFriedChickenView();
 
     }
 
@@ -198,6 +233,20 @@ public class MainActivity extends AppCompatActivity {
                 num++;
                 int resID = getResources().getIdentifier(numOfEgg, "id", getPackageName());
                 eggs[i][j] = ((ShapeableImageView) findViewById(resID));
+            }
+        }
+
+    }
+    private void setFriedChickenView() {
+
+        fried_chicken = new ShapeableImageView[HEIGHT][NUMOFCHICKENS];
+        int num = 1;
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < NUMOFCHICKENS; j++) {
+                String numOfFChicken = "fried_chicken" + num;
+                num++;
+                int resID = getResources().getIdentifier(numOfFChicken, "id", getPackageName());
+                fried_chicken[i][j] = ((ShapeableImageView) findViewById(resID));
             }
         }
 
