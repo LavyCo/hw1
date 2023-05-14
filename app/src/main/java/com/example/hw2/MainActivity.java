@@ -1,8 +1,9 @@
-package com.example.hw1;
+package com.example.hw2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.myapplication.R;
+import com.example.hw2.Interfaces.StepCallback;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 
@@ -21,7 +22,9 @@ import com.google.android.material.imageview.ShapeableImageView;
 
 public class MainActivity extends AppCompatActivity {
 
-    public final int DELAY = 1000;
+    private final int SLOW_DELAY = 1500;
+    private final int FAST_DELAY = 700;
+    private int currentDelay;
     public final int HEIGHT = 6;
     public final int NUMOFCHICKENS = 5;
     private final int LIFE = 3;
@@ -33,46 +36,87 @@ public class MainActivity extends AppCompatActivity {
     private ShapeableImageView[] ship;
     private TextView score;
     private int counterScore;
-
-
-
     private MediaPlayer eggSound;
     private MediaPlayer eatSound;
-
-
     private MaterialButton[] mainLeftRightBTN;
+    private eGameMode gameMode;
+    private StepDetector stepDetector;
+    private ManualFunctions manualFunctions;
+    final Handler handler = new Handler();
+    Runnable runnable;
+    private boolean isStartGame = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        gamemanager=new Gamemanager(LIFE,HEIGHT,NUMOFCHICKENS);
+        gamemanager = new Gamemanager(LIFE, HEIGHT, NUMOFCHICKENS);
         findViewForAllGameBoard();
-        viewShip();
-       setButtons();
-         start();
+        setButtons();
+        Intent previousIntent = getIntent();
+        String enum_name = previousIntent.getExtras().getString(DataManager.GAME_MODE);
+        gameMode = eGameMode.valueOf(enum_name);
+        manualFunctions = new ManualFunctions(this);
+        if (gameMode == eGameMode.SLOW_ARROWS || gameMode == eGameMode.FAST_ARROWS) {
+            initViewDelay();
+        } else if (gameMode == eGameMode.SENSOR) {
+            initViewSensors();
+            stepDetector.start();
+        }
         eggSound =MediaPlayer.create(this,R.raw.eggs_break);
         eatSound =MediaPlayer.create(this,R.raw.eating);
         counterScore=0;
-
+        viewShip();
+        isStartGame = true;
+        start();
     }
-    private void start() {
-        final Handler handler = new Handler();
 
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                handler.postDelayed(this, 800);
-                gamemanager.randomEgg();
-                initBrokenEggs();
-                refreshUI();
-                eggs[HEIGHT-1][gamemanager.getShipIndex()].setVisibility(View.INVISIBLE);
-                fried_chicken[HEIGHT-1][gamemanager.getShipIndex()].setVisibility(View.INVISIBLE);
-
-
+    private void initViewSensors() {
+        currentDelay = SLOW_DELAY;
+        mainLeftRightBTN[0].setVisibility(View.INVISIBLE);
+        mainLeftRightBTN[1].setVisibility(View.INVISIBLE);
+        stepDetector = new StepDetector(this, new StepCallback() {
+            @Override
+            public void left() {
+                clicked(0);
             }
-        }, DELAY);
 
+            @Override
+            public void right() {
+                clicked(1);
+            }
+        });
+    }
 
+    private void initViewDelay() {
+        if (gameMode == eGameMode.SLOW_ARROWS)
+            currentDelay = SLOW_DELAY;
+        else if (gameMode == eGameMode.FAST_ARROWS)
+            currentDelay = FAST_DELAY;
+    }
+
+    private void start() {
+        if (isStartGame) {
+            runnable = new Runnable() {
+                @Override
+                public void run() {
+                    handler.postDelayed(this, currentDelay);
+                    gamemanager.randomEgg();
+                    initBrokenEggs();
+                    refreshUI();
+                    eggs[HEIGHT-1][gamemanager.getShipIndex()].setVisibility(View.INVISIBLE);
+                    fried_chicken[HEIGHT-1][gamemanager.getShipIndex()].setVisibility(View.INVISIBLE);
+                }
+            };
+            handler.post(runnable);
+        }
+    }
+
+    private void endGame() {
+        handler.removeCallbacks(runnable);
+        eatSound.stop();
+        eggSound.stop();
+        isStartGame = false;
     }
 
     private void refreshUI() {
@@ -83,31 +127,25 @@ public class MainActivity extends AppCompatActivity {
             brokenEgg();
             gamemanager.crash();
             if(gamemanager.isLose()){
-                toast("GAME OVER!");
-                vibrate();
-                gamemanager.setLife(LIFE);
-                for(int i = 0;i <hearts.length;i++){
-                    hearts[i].setVisibility(View.VISIBLE);
-                }
-
+                endGame();
+                openScorePage(counterScore);
             }
             else{
-                toast("Lost Life!");
-                vibrate();
-                for(int i = gamemanager.getLife();i < hearts.length;i++){
-                    hearts[i].setVisibility(View.INVISIBLE);
+                if(isStartGame) {
+                    manualFunctions.toast("Lost Life!");
+                    manualFunctions.vibrate();
+                    for (int i = gamemanager.getLife(); i < hearts.length; i++) {
+                        hearts[i].setVisibility(View.INVISIBLE);
+                    }
                 }
-
             }
         }else if(gamemanager.isFried()){
             eatSound.start();
             fried_chicken[HEIGHT-2][gamemanager.getShipIndex()].setVisibility(View.INVISIBLE);
             if(gamemanager.getLife()!=LIFE){
-                toast("Get Life!");
-                vibrate();
-
+                manualFunctions.toast("Get Life!");
+                manualFunctions.vibrate();
             }
-
             gamemanager.addLife();
             for (int i = 0; i < gamemanager.getLife(); i++) {
                 hearts[i].setVisibility(View.VISIBLE);
@@ -146,16 +184,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setButtons() {
-        mainLeftRightBTN[0].setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                clicked(0);
-            }
-        });
-        mainLeftRightBTN[1].setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                clicked(1);
-            }
-        });
+        mainLeftRightBTN[0].setOnClickListener(view -> clicked(0));
+        mainLeftRightBTN[1].setOnClickListener(view -> clicked(1));
     }
     private void clicked(int move) {
         int shipInd = gamemanager.getShipIndex();
@@ -216,10 +246,9 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.broken_egg2),
                 findViewById(R.id.broken_egg3),findViewById(R.id.broken_egg4),findViewById(R.id.broken_egg5)};
         score= findViewById(R.id.main_score);
-
         setEggView() ;
         setFriedChickenView();
-
+        initBrokenEggs();
     }
 
 
@@ -233,6 +262,7 @@ public class MainActivity extends AppCompatActivity {
                 num++;
                 int resID = getResources().getIdentifier(numOfEgg, "id", getPackageName());
                 eggs[i][j] = ((ShapeableImageView) findViewById(resID));
+                eggs[i][j].setVisibility(View.INVISIBLE);
             }
         }
 
@@ -247,6 +277,7 @@ public class MainActivity extends AppCompatActivity {
                 num++;
                 int resID = getResources().getIdentifier(numOfFChicken, "id", getPackageName());
                 fried_chicken[i][j] = ((ShapeableImageView) findViewById(resID));
+                fried_chicken[i][j].setVisibility(View.INVISIBLE);
             }
         }
 
@@ -262,6 +293,13 @@ public class MainActivity extends AppCompatActivity {
         for(int i=0;i<NUMOFCHICKENS;i++){
             this.brokenEggs[i].setVisibility(View.INVISIBLE);
         }
+    }
+
+    private void openScorePage(int score) {
+        Intent intent = new Intent(this, ScoreActivity.class);
+        intent.putExtra(ScoreActivity.KEY_SCORE, counterScore);
+        startActivity(intent);
+        finish();
     }
 
 }

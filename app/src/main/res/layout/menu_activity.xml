@@ -4,29 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/menu"
-    tools:context=".MenuActivity">
+    tools:context="com.example.hw2.MenuActivity">
 
 
     <TextView
-        android:id="@+id/menu_TXT_title"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="120dp"
         android:fontFamily="@font/baliw"
-        android:text="SAVE FRENCHIE"
-        android:textColor="@color/black"
+        android:text="chickens and "
+        android:textColor="@color/teal_200"
         android:textSize="40sp" />
 
     <TextView
-        android:id="@+id/menu_TXT_title2"
+        android:id="@+id/title2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/menu_TXT_title"
+        android:layout_below="@id/title"
         android:layout_centerHorizontal="true"
         android:fontFamily="@font/baliw"
         android:text="Ship In Space"
-        android:textColor="@color/black"
+        android:textColor="@color/teal_200"
         android:textSize="40sp"
 
         />
@@ -36,28 +36,28 @@
         android:id="@+id/menu_LNR_arrows"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/menu_TXT_title2"
+        android:layout_below="@id/title2"
         android:layout_centerInParent="true"
         android:gravity="center"
         android:orientation="horizontal">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/menu_BTN_slowMode"
+            android:id="@+id/slowMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:backgroundTint="#8BC34A"
+            android:backgroundTint="#00BCD4"
             android:fontFamily="@font/iron_wall"
             android:text="SLOW MODE"
 
             />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/menu_BTN_fastMode"
+            android:id="@+id/fastMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:backgroundTint="#8BC34A"
+            android:backgroundTint="#00BCD4"
             android:fontFamily="@font/iron_wall"
             android:text="FAST MODE"
 
@@ -67,7 +67,7 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/menu_LNR_sensor"
+        android:id="@+id/sensor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/menu_LNR_arrows"
@@ -78,11 +78,11 @@
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/menu_BTN_sensorMode"
+            android:id="@+id/sensorMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:backgroundTint="#8AC24A"
+            android:backgroundTint="#00BCD4"
             android:fontFamily="@font/iron_wall"
             android:text="SENSOR MODE" />
 
@@ -90,13 +90,13 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/menu_BTN_topTen"
+        android:id="@+id/topTen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="60dp"
-        android:backgroundTint="#8BC34A"
+        android:backgroundTint="#00BCD4"
         android:fontFamily="@font/iron_wall"
         android:text="TOP 10" />
 

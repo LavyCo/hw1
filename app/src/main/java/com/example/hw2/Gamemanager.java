@@ -1,8 +1,4 @@
-package com.example.hw1;
-
-import android.content.Context;
-import android.os.Vibrator;
-import android.view.View;
+package com.example.hw2;
 
 import java.util.Random;
 
