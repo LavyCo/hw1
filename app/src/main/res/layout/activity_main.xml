@@ -114,9 +114,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:fontFamily="@font/iron_wall"
             android:layout_marginTop="30dp"
             android:text="0"
-            android:textColor="@color/white"
+            android:textColor="@color/teal_200"
             android:textSize="25sp" />
         <LinearLayout
             android:layout_width="300dp"

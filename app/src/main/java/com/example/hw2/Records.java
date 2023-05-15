@@ -8,12 +8,7 @@ public class Records {
     private int maxTop = 10;
     private ArrayList<UserDetails> top_records = new ArrayList<>();
 
-    public Records(ArrayList<UserDetails> top_records) {
-        this.top_records = top_records;
-    }
 
-    public Records() {
-    }
 
     public void updateTop(UserDetails userDetails) {
         top_records.add(userDetails);
@@ -37,19 +32,6 @@ public class Records {
         return top_records.size();
     }
 
-    public int getMaxTop() {
-        return maxTop;
-    }
-
-    public Records setMaxTop(int maxTop) {
-        this.maxTop = maxTop;
-        return this;
-    }
-
-    public Records setTop_records(ArrayList<UserDetails> top_records) {
-        this.top_records = top_records;
-        return this;
-    }
 
     @Override
     public String toString() {

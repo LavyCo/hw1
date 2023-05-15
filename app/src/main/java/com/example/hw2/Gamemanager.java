@@ -57,12 +57,12 @@ public class Gamemanager {
                 }
                 else{
                     if(eggsBoard[i][j]==1){
-                        eggsBoard[i+1][j]=1;
                         eggsBoard[i][j]= 0;
+                        eggsBoard[i+1][j]=1;
                     }
                     else if(eggsBoard[i][j]==2){
-                        eggsBoard[i+1][j]=2;
                         eggsBoard[i][j]= 0;
+                        eggsBoard[i+1][j]=2;
                     }
                 }
             }

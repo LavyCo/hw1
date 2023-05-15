@@ -10,6 +10,7 @@
 
 
     <TextView
+        android:id="@+id/gameOver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/iron_wall"
@@ -18,7 +19,7 @@
         android:textSize="36dp" />
 
     <TextView
-        android:id="@+id/score_LBL_score"
+        android:id="@+id/score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -32,7 +33,7 @@
 
 
     <EditText
-        android:id="@+id/score_ETXT_name"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -43,27 +44,29 @@
         />
 
     <Button
-        android:id="@+id/score_BTN_save"
+        android:id="@+id/scoreSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:backgroundTint="#00BCD4"
         android:fontFamily="@font/iron_wall"
-        android:text="save your score"
+        android:text="save"
         android:textColor="@color/black" />
 
 
+
     <Button
-        android:id="@+id/score_BTN_startover"
+        android:id="@+id/backToMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:backgroundTint="#00BCD4"
         android:fontFamily="@font/iron_wall"
-        android:text="Start Over"
+        android:text="back To Menu"
         android:textColor="@color/black"
         android:textSize="32dp"
 
         />
+
 
 </LinearLayout>

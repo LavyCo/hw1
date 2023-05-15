@@ -17,7 +17,8 @@ public class ScoreActivity extends AppCompatActivity {
 
     private TextView score_LBL_score;
     private Button score_BTN_save;
-    private Button score_BTN_startover;
+    private Button back_To_Menu_BTN;
+
     private EditText score_ETXT_name;
     private GPS myGps;
     private String name;
@@ -37,26 +38,28 @@ public class ScoreActivity extends AppCompatActivity {
     }
 
     private void findViews() {
-        score_BTN_startover = findViewById(R.id.score_BTN_startover);
-        score_LBL_score = findViewById(R.id.score_LBL_score);
-        score_BTN_save = findViewById(R.id.score_BTN_save);
-        score_ETXT_name = findViewById(R.id.score_ETXT_name);
+
+        score_LBL_score = findViewById(R.id.score);
+        score_BTN_save = findViewById(R.id.scoreSave);
+        score_ETXT_name = findViewById(R.id.name);
+        back_To_Menu_BTN=findViewById(R.id.backToMenu);
     }
 
-    private void openGamePage() {
+
+    private void openMenuPage(){
         Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
         finish();
+
     }
 
     private void initViews() {
 
-        score_BTN_startover.setOnClickListener(view -> openGamePage());
-
+        back_To_Menu_BTN.setOnClickListener(view -> openMenuPage());
         score_BTN_save.setOnClickListener(v -> {
             saveName();
             score_BTN_save.setVisibility(View.INVISIBLE);
-            openGamePage();
+            openMenuPage();
         });
 
     }

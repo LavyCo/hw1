@@ -2,18 +2,13 @@ package com.example.hw2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
+
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.hw2.Interfaces.StepCallback;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -22,9 +17,9 @@ import com.google.android.material.imageview.ShapeableImageView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final int SLOW_DELAY = 1500;
+    private final int SLOW_DELAY = 1000;
     private final int FAST_DELAY = 700;
-    private int currentDelay;
+    private static int currentDelay;
     public final int HEIGHT = 6;
     public final int NUMOFCHICKENS = 5;
     private final int LIFE = 3;
@@ -73,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViewSensors() {
         currentDelay = SLOW_DELAY;
-        mainLeftRightBTN[0].setVisibility(View.INVISIBLE);
-        mainLeftRightBTN[1].setVisibility(View.INVISIBLE);
+        mainLeftRightBTN[0].setVisibility(View.INVISIBLE);//left
+        mainLeftRightBTN[1].setVisibility(View.INVISIBLE);//right
         stepDetector = new StepDetector(this, new StepCallback() {
             @Override
             public void left() {
@@ -111,6 +106,19 @@ public class MainActivity extends AppCompatActivity {
             handler.post(runnable);
         }
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable);
+
+
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        handler.removeCallbacks(runnable);
+        handler.postDelayed(runnable,currentDelay);
+    }
 
     private void endGame() {
         handler.removeCallbacks(runnable);
@@ -129,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
             if(gamemanager.isLose()){
                 endGame();
                 openScorePage(counterScore);
+
             }
             else{
                 if(isStartGame) {
@@ -199,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
             gamemanager.moveShip(shipInd);
             viewShip();
         }
-        gamemanager.updateBoard();
+
     }
     private void viewShip() {
         int ShipInd = gamemanager.getShipIndex();
@@ -212,19 +221,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-    private void toast(String st) {
-        Toast.makeText(this, st, Toast.LENGTH_SHORT).show();
-    }
-    private void vibrate() {
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        // Vibrate for 500 milliseconds
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
-        } else {
-            //deprecated in API 26
-            v.vibrate(500);
-        }
-    }
+
 
 
     private void findViewForAllGameBoard() {
@@ -246,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.broken_egg2),
                 findViewById(R.id.broken_egg3),findViewById(R.id.broken_egg4),findViewById(R.id.broken_egg5)};
         score= findViewById(R.id.main_score);
-        setEggView() ;
+        setEggView();
         setFriedChickenView();
         initBrokenEggs();
     }
