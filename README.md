@@ -1,4 +1,8 @@
-# hw1
+# hw2
 
-https://user-images.githubusercontent.com/101973482/232232485-9f921d3c-275c-49e0-821d-df0ce8ef67ba.mp4
+
+
+https://github.com/LavyCo/hw2/assets/101973482/b287afaa-3a5c-4ebd-a92b-efd24f1912e8
+
+
 
